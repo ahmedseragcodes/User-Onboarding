@@ -7,7 +7,8 @@ import * as yup from "yup";
 const schema = yup.object().shape({
   name: yup.string().required("name is required").min(1, "user needs to be 1 char min"),
   email: yup.string().required("email is required").min(5, "email must include proper symbol and domain, min 5 chars"),
-  password: yup.string().required("password is required").min(6, "password must be at-least 6 characters long")
+  password: yup.string().required("password is required").min(6, "password must be at-least 6 characters long"),
+  agree: yup.boolean().oneOf([true], "terms and conditions must be accepted to proceed"),
 })
 
 function App() {
@@ -16,7 +17,7 @@ const [form, setForm]=useState({
   name: "",
   email: "",
   password: "",
-  agree: true,
+  agree: false,
 })
 
 const [disabled, setDisabled]=useState(true);
