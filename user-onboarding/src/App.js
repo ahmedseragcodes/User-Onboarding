@@ -9,25 +9,34 @@ const [form, setForm]=useState({
   name: "",
   email: "",
   password: "",
+  agree: true,
 })
 
-
-
+const change = event => {
+  const { checked, value, name, type } = event.target
+  const valueToUse=type==="checkbox" ? checked : value
+  setForm({...form, [name]: valueToUse})
+}
   return (
     <div className="App">
       <form>
+
         <label htmlFor="name">Name:
-          <input type="text" name="name" value={form.name} />
+          <input onChange={change} type="text" name="name" value={form.name} />
         </label>
+
         <label htmlFor="email">Email:
-          <input type="email" name="email" value={form.email} />
+          <input onChange={change} type="email" name="email" value={form.email} />
         </label>
+
         <label htmlFor="password">Password:
-          <input type="password" name="password" value={form.password} />
+          <input onChange={change} type="password" name="password" value={form.password} />
         </label>
-        <label htmlFor="termsOfService">
-          <input type="checkbox" name="termsOfService" checked={true} />
+
+        <label htmlFor="agree">
+          <input onChange={change} type="checkbox" name="agree" checked={form.agree} />
         </label>
+
         <button type="submit">Submit</button>
       </form>
     </div>
