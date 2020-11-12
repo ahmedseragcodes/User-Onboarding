@@ -1,7 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  name: yup.string().required("name is required").min(1, "user needs to be 1 char min"),
+  email: yup.string().required("email is required").min(5, "email must include proper symbol and domain, min 5 chars"),
+  password: yup.string().required("password is required").min(6, "password must be at-least 6 characters long")
+})
 
 function App() {
 
@@ -12,11 +19,19 @@ const [form, setForm]=useState({
   agree: true,
 })
 
+const [disabled, setDisabled]=useState(true);
+
 const change = event => {
   const { checked, value, name, type } = event.target
   const valueToUse=type==="checkbox" ? checked : value
   setForm({...form, [name]: valueToUse})
 }
+
+useEffect(function(item){
+  schema.isValid(form).then(valid => setDisabled(!valid))
+},[form])
+
+
   return (
     <div className="App">
       <form>
@@ -37,7 +52,7 @@ const change = event => {
           <input onChange={change} type="checkbox" name="agree" checked={form.agree} />
         </label>
 
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={disabled}>Submit</button>
       </form>
     </div>
   )
