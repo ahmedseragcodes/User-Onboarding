@@ -1,18 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
+import * as yup from "yup";
+import Schema from "../validation/schema.js";
 
-// const initialFormValues={
-//     name: "",
-//     email: "",
-//     password: "",
-//     termsOfService: false
-//   }
 
 
 export default function Form(props){
 
-    const { values, setFormValues, errors, setFormErrors, users, setUsers, disabled, setDisabled, initialFormValues }=props;
+    const { onSubmit, values, setFormValues, errors, setFormErrors, users, setUsers, disabled, setDisabled, initialFormValues }=props;
 
 const onChange=function(event){
     const { value, type, name, checked }=event.target;
@@ -22,25 +18,6 @@ const onChange=function(event){
     setFormValues({...values, [name]: valueToUse})    
 }
 
-const onSubmit=function(event, setUsers){
-    event.preventDefault();
-
-    const newFriend={
-        name: values.name.trim(),
-        email: values.email.trim(),
-        password: values.password.trim(),
-        termsOfService: values.termsOfService
-    }
-    axios.post("http://buddies.com/api/friends", newFriend)
-    .then(function(res){
-        setUsers([...res.data, newFriend]);
-        setFormValues(initialFormValues);
-    })
-    .catch(function(err){
-        console.log(err);
-    })
-
-}
 
 
     return (
