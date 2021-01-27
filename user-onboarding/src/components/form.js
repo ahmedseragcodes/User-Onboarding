@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import * as yup from "yup";
 import Schema from "../validation/schema.js";
@@ -65,7 +65,7 @@ const onChange=function(event){
                 <input name="termsOfService" type="checkbox" checked={values.termsOfService} onChange={onChange} />
             </label>
 
-            <button>Submit</button>
+            <button disabled={disabled}>Submit</button>
 
             
         </form>

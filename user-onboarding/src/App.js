@@ -1,10 +1,11 @@
 import './App.css';
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "./components/form";
 import styled from "styled-components";
 import * as yup from "yup";
 import Schema from "../src/validation/schema.js";
+import schema from '../src/validation/schema.js';
 
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
   const initialFormErrors={
     name: "",
     email: "",
-    password: ""
+    password: "",
+    termsOfService: ""
   }
   const initialUsers=[];
   const initialDisabled=true;
@@ -38,6 +40,7 @@ function App() {
         password: formValues.password.trim(),
     }
     
+    //GETTING NETWORK ERROR WITH API BUT FUNCTIONALITY IS WORKING? 
     // axios.post("https://reqres.in/api/", newFriend)
     // .then(function(res){
     //     setUsers([...users, newFriend]);
@@ -50,6 +53,12 @@ function App() {
         setFormValues(initialFormValues);
     
 }
+
+useEffect(function(){
+  schema.isValid(formValues).then(function(valid){
+    setDisabled(!valid);
+  });
+},[formValues])
 
   return (
     <UserOnboarding>
