@@ -22,7 +22,7 @@ const onChange=function(event){
     setFormValues({...values, [name]: valueToUse})    
 }
 
-const onSubmit=function(event){
+const onSubmit=function(event, setUsers){
     event.preventDefault();
 
     const newFriend={
@@ -31,15 +31,15 @@ const onSubmit=function(event){
         password: values.password.trim(),
         termsOfService: values.termsOfService
     }
-
-    axios.post("https://reqres.in/", newFriend)
+    axios.post("http://buddies.com/api/friends", newFriend)
     .then(function(res){
-        setUsers([...users, newFriend]);
+        setUsers([...res.data, newFriend]);
         setFormValues(initialFormValues);
     })
     .catch(function(err){
         console.log(err);
     })
+
 }
 
 
@@ -48,7 +48,22 @@ const onSubmit=function(event){
             <label htmlFor="name">Name:
                 <input name="name" type="text" value={values.name} onChange={onChange} />
             </label>
+            
+            <label htmlFor="email">Email:
+                <input name="email" type="email" value={values.email} onChange={onChange} />
+            </label>
+
+            <label htmlFor="password">Password:
+                <input name="password" type="password" value={values.password} onChange={onChange} />
+            </label>
+
+            <label htmlFor="termsOfService">Terms Of Service:
+                <input name="termsOfService" type="checkbox" checked={values.termsOfService} onChange={onChange} />
+            </label>
+
             <button>Submit</button>
+
+            
         </form>
     )
 }
