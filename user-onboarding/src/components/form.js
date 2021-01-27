@@ -11,6 +11,26 @@ export default function Form(props){
     const { onSubmit, values, setFormValues, errors, setFormErrors, users, setUsers, disabled, setDisabled, initialFormValues }=props;
 
 const onChange=function(event){
+
+    yup
+    .reach(Schema, event.target.name)
+    .validate(event.target.value)
+    .then(function(){
+        setFormErrors({
+            ...errors,
+            [event.target.name]: "",
+        })
+    })
+    .catch(function(err){
+        setFormErrors({
+            ...errors,
+            [event.target.name]: err.errors[0],
+        })
+    })
+
+
+    //original
+
     const { value, type, name, checked }=event.target;
 
     const valueToUse=type==="checkbox" ? checked : value;
@@ -21,6 +41,13 @@ const onChange=function(event){
 
 
     return (
+        <div>
+            <div className="errors">
+                <div>{errors.name}</div>
+                <div>{errors.email}</div>
+                <div>{errors.password}</div>
+                <div>{errors.termsOfService}</div>
+            </div>
         <form onSubmit={onSubmit} >
             <label htmlFor="name">Name:
                 <input name="name" type="text" value={values.name} onChange={onChange} />
@@ -42,5 +69,6 @@ const onChange=function(event){
 
             
         </form>
+        </div>
     )
 }
