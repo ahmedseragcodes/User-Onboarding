@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Form from "./components/form";
 import styled from "styled-components";
 import * as yup from "yup";
-import Schema from "../src/validation/schema.js";
 import schema from '../src/validation/schema.js';
 
 
@@ -38,20 +37,20 @@ function App() {
         name: formValues.name.trim(),
         email: formValues.email.trim(),
         password: formValues.password.trim(),
+        termsOfService: ["termsOfService"].filter(function(tos){
+          return formValues[tos];
+        })
     }
     
-    //GETTING NETWORK ERROR WITH API BUT FUNCTIONALITY IS WORKING? 
-    // axios.post("https://reqres.in/api/", newFriend)
-    // .then(function(res){
-    //     setUsers([...users, newFriend]);
-    //     setFormValues(initialFormValues);
-    // })
-    // .catch(function(err){
-    //     console.log(err);
-    // })
-        setUsers([...users, newFriend]);
+    axios.post("https://reqres.in/api/users", newFriend)
+    .then(function(res){
+        setUsers([...users, res.data]);
         setFormValues(initialFormValues);
-    
+    })
+    .catch(function(err){
+        console.log(err);
+    })
+
 }
 
 useEffect(function(){
@@ -65,7 +64,7 @@ useEffect(function(){
       <h1>New Users</h1>
       <Form values={formValues} setFormValues={setFormValues} errors={formErrors} users={users} setUsers={setUsers} disabled={disabled} setFormErrors={setFormErrors} setDisabled={setDisabled} initialFormValues={initialFormValues} onSubmit={onSubmit} />
       {users.map(function(user){
-        return <p>{user.name}</p>
+        return <p key={user.name}>{user.name}</p>
       })}
     </UserOnboarding>
   );

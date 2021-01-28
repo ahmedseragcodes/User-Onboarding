@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import * as yup from "yup";
-import Schema from "../validation/schema.js";
+import schema from "../validation/schema.js";
 
 
 
@@ -13,7 +13,7 @@ export default function Form(props){
 const onChange=function(event){
 
     yup
-    .reach(Schema, event.target.name)
+    .reach(schema, event.target.name)
     .validate(event.target.value)
     .then(function(){
         setFormErrors({
@@ -29,7 +29,7 @@ const onChange=function(event){
     })
 
 
-    //original
+    //original handle change functionality 
 
     const { value, type, name, checked }=event.target;
 
