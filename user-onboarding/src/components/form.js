@@ -65,7 +65,7 @@ const onChange=function(event){
                 <input name="termsOfService" type="checkbox" checked={values.termsOfService} onChange={onChange} />
             </label>
 
-            <button disabled={disabled}>Submit</button>
+            <button id="submitBtn" disabled={disabled}>Submit</button>
 
             
         </form>
