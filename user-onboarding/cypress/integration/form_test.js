@@ -6,11 +6,11 @@ describe ("End to End Testing For User Onboarding", ()=>{
     //     cy.visit("http://localhost:3000/");
     // });
     //variables for quick access 
-    const nameInput=function(){ cy.get("input[name='name']") };
-    const emailInput=function(){ cy.get("input[name='email']") };
-    const passInput=function(){ cy.get("input[name='password']") };
-    const tosInput=function(){ cy.get("input[name='termsOfService']") }
-    const submitBtn=function(){ cy.get("button[id='submitBtn']") };
+    const nameInput=function(){ return cy.get("input[name='name']") };
+    const emailInput=function(){ return cy.get("input[name='email']") };
+    const passInput=function(){ return cy.get("input[name='password']") };
+    const tosInput=function(){ return cy.get("input[name='termsOfService']") }
+    const submitBtn=function(){ return cy.get("button[id='submitBtn']") };
     
 
     it("ensuring name can be input", function(){
